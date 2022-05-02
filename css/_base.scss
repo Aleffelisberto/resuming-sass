@@ -1,0 +1,66 @@
+$text-color: #fff;
+
+$colors: (
+  color1: yellow,
+  color2: red,
+  color3: black
+);
+
+@mixin box-shadow($color) {
+  box-shadow: 3px 3px 4px -2px $color;
+}
+
+@mixin text-effect($val) {
+  @if $val == alert {
+    color: yellow;
+  }
+  @else if $val == danger {
+    color: red
+  }
+  @else {
+    color: black
+  }
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+body {
+  @extend .flex;
+
+  background: #7159c1;
+  height: 100vh;
+}
+
+.container {
+  color: $text-color;
+  background-color: #7464a5;
+  padding: 20px;
+  width: 400px;
+  height: fit-content;
+  transition: transform 0.2s;
+
+  @include box-shadow(rgba(0, 0, 0, 0.3));
+  p {
+    @include  text-effect(none);
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+@for $i from 1 through 5 {
+  .text-#{$i} {
+    font-size: 10px * $i;
+  }
+}
+
+@each $key, $color in $colors {
+  .#{$color}-text {
+    color: $color
+  }
+}
